@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Search, X, BookOpen, Code, Video, ExternalLink, BrainCircuit, ArrowRight } from 'lucide-react';
 import { dictionaryData } from './data';
 import 'katex/dist/katex.min.css';
-import { BlockMath } from 'react-katex';
+import { BlockMath, InlineMath } from 'react-katex';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -85,16 +85,19 @@ function App() {
     }, 300);
   };
 
-  // Helper to correctly render markdown bold (**) and italics (*) inline
+  // Helper to correctly render markdown bold (**), italics (*), and inline math ($)
   const renderFormattedText = (text) => {
     if (!text) return null;
-    const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+    const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|\$.*?\$)/g);
     return parts.map((part, index) => {
       if (part.startsWith('**') && part.endsWith('**')) {
         return <strong key={index} style={{ color: 'var(--text-main)', fontWeight: '700' }}>{part.slice(2, -2)}</strong>;
       }
       if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
         return <em key={index} style={{ fontStyle: 'italic', color: 'var(--accent)' }}>{part.slice(1, -1)}</em>;
+      }
+      if (part.startsWith('$') && part.endsWith('$')) {
+        return <InlineMath key={index} math={part.slice(1, -1)} />;
       }
       return <span key={index}>{part}</span>;
     });
@@ -215,6 +218,28 @@ function App() {
         </main>
       </div>
 
+      <footer className="app-footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-left">
+              <div className="footer-logo">
+                <BrainCircuit size={24} className="text-accent" />
+                <span className="gradient-text">AI & ML</span> Dictionary
+              </div>
+              <p>The definitive interactive guide to artificial intelligence and machine learning architecture.</p>
+            </div>
+            <div className="footer-right">
+              <p className="attribution">
+                Content is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution-ShareAlike License</a>; 
+              </p>
+              <p className="attribution" style={{ marginTop: '0.5rem' }}>
+                Derived from <a href="https://en.wikipedia.org" target="_blank" rel="noopener noreferrer">Wikipedia</a> and other open academic repositories.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
       {/* Modal */}
       <div className={`modal-overlay ${isModalOpen ? 'open' : ''}`} onClick={closeModal}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -271,6 +296,7 @@ function App() {
                     <p className="section-text">{renderFormattedText(selectedTerm.structuredDefinition?.imageRef)}</p>
                     <p className="section-text" style={{ paddingBottom: '1rem' }}>{renderFormattedText(selectedTerm.structuredDefinition?.currentTrends)}</p>
                   </div>
+
                   
                   {/* Citations Box */}
                   <div className="citations-box">
@@ -414,6 +440,15 @@ function App() {
                     </div>
                   </div>
                 )}
+
+                <div className="license-badge" style={{ marginTop: '3rem', padding: '1.5rem', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', fontSize: '0.9rem', color: '#64748b', lineHeight: '1.6', textAlign: 'center' }}>
+                  <p>
+                    Content is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: '600', textDecoration: 'none' }}>Creative Commons Attribution-ShareAlike License</a>. 
+                  </p>
+                  <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                    Derived from <a href="https://en.wikipedia.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Wikipedia</a> and other open academic repositories.
+                  </p>
+                </div>
               </div>
             </>
           )}
