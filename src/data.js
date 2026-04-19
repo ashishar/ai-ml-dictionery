@@ -2926,7 +2926,7 @@ export const dictionaryData = [
   "structuredDefinition": {
    "introduction": "As a key element in Evolutionary Computation, **Swarm intelligence** plays a vital role in transforming raw data into actionable intelligence.",
    "technical": "Swarm intelligence (SI) is the collective behavior of decentralized, self-organized systems, natural or artificial. The concept is employed in work on artificial intelligence. The expression was introduced by Jing Wang and Gerardo Beni in 1989, in the context of cellular robotic systems.\nSwarm intelligence systems consist typically of a population of simple agents or boids interacting locally with one another and with their environment. The inspiration often comes from nature, especially biological systems.",
-   "equationVars": "$ v_i  is the velocity of particle i. $ w $ is the inertia weight. c_1$ and c_2$ are cognitive and social coefficients. r_1$ and r_2$ are random vectors. p_i  is the personal best position. $ g $ is the global best position. x_i $ is current position.",
+   "equationVars": "$v_i$ is the velocity of particle i. $w$ is the inertia weight. $c_1$ and $c_2$ are cognitive and social coefficients. $r_1$ and $r_2$ are random vectors. $p_i$ is the personal best position. $g$ is the global best position. $x_i$ is the current position.",
    "equationMeaning": "At its core, the math represents the trade-offs that Swarm intelligence manages to ensure robust convergence.",
    "useCase": "The versatility of Swarm intelligence makes it a go-to choice for developers working on low-latency, high-throughput applications.",
    "imageRef": "The graphic breakdown of Swarm intelligence helps demystify the internal mechanics that allow the model to learn effectively.",
